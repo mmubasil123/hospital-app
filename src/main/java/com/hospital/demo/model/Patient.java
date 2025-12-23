@@ -1,9 +1,11 @@
 package com.hospital.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Entity
+@Table(name = "patients")
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,5 +29,6 @@ public class Patient {
     String lastName;
 
     // Mistake 1: Missing @Index for email. Causes sequential scan on 100k rows.
+    @Column(unique = true, nullable = false)
     String email;
 }

@@ -1,6 +1,6 @@
 package com.hospital.demo.exception;
 
-import com.hospital.demo.dto.ApiResponse;
+import com.hospital.demo.dto.ApiEnvelope;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleNotFound(ResourceNotFoundException ex) {
+    public ResponseEntity<ApiEnvelope> handleNotFound(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-            ApiResponse.<Void>builder()
+            ApiEnvelope.<Void>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
@@ -26,14 +26,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse> handleValidation(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiEnvelope> handleValidation(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult().getFieldErrors()
             .stream()
             .map(f -> f.getField() + ": " + f.getDefaultMessage())
             .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-            ApiResponse.<Void>builder()
+            ApiEnvelope.<Void>builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Validation Failed")
                 .errors(errors)
@@ -43,9 +43,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse> handleGeneralError(Exception ex) {
+    public ResponseEntity<ApiEnvelope> handleGeneralError(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-            ApiResponse.<Void>builder()
+            ApiEnvelope.<Void>builder()
                 .status(500)
                 .message("An internal error occurred: " + ex.getMessage())
                 .timestamp(LocalDateTime.now())

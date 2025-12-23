@@ -1,5 +1,6 @@
 package com.hospital.demo.service;
 
+import com.hospital.demo.dto.PatientRequest;
 import com.hospital.demo.exception.ResourceNotFoundException;
 import com.hospital.demo.model.Patient;
 import com.hospital.demo.repository.PatientRepository;
@@ -37,7 +38,7 @@ public class PatientService {
         return  patient.get();
     }
 
-    public void createPatient(Patient patient) {
+    public void createPatient(PatientRequest patient) {
         Patient builder = Patient.builder()
             .firstName(patient.getFirstName())
             .lastName(patient.getLastName())

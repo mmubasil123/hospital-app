@@ -1,6 +1,6 @@
 package com.hospital.demo.service;
 
-import com.hospital.demo.dto.AppointmentDTO;
+import com.hospital.demo.dto.AppointmentResponse;
 import com.hospital.demo.model.Appointment;
 import com.hospital.demo.model.Patient;
 import com.hospital.demo.repository.AppointmentRepository;
@@ -20,17 +20,18 @@ public class AppointmentService {
     AppointmentRepository appointmentRepo;
     PatientService patientService;
 
-    public List<AppointmentDTO> getAllWithDetails() {
+    public List<AppointmentResponse> getAllWithDetails() {
         List<Appointment> appointments = appointmentRepo.findAll();
 
         // INTENTIONAL FLAW: The N+1 Select Problem
         // We loop and call the Service (which calls the Repo) for every single item.
         return appointments.stream().map(appt -> {
             Patient p = patientService.findById(String.valueOf(appt.getPatientId()));
-            return new AppointmentDTO(
+            return new AppointmentResponse(
                 appt.getId(),
                 p.getFirstName() + " " + p.getLastName(),
-                appt.getAppointmentTime()
+                appt.getAppointmentTime(),
+                appt.getNotes()
             );
         }).toList();
     }

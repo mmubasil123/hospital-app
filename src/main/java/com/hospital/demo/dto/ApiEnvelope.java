@@ -18,15 +18,15 @@ import org.springframework.http.ResponseEntity;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ApiResponse<T> {
+public class ApiEnvelope<T> {
     int status;
     String message;
     T data;
     List<String> errors;
     LocalDateTime timestamp;
 
-    public static <T> ResponseEntity<ApiResponse> success(T data, String message) {
-        return ResponseEntity.ok(ApiResponse.<T>builder()
+    public static <T> ResponseEntity<ApiEnvelope<T>> success(T data, String message) {
+        return ResponseEntity.ok(ApiEnvelope.<T>builder()
             .status(HttpStatus.OK.value())
             .message(message)
             .data(data)
@@ -34,11 +34,10 @@ public class ApiResponse<T> {
             .build());
     }
 
-    public static <T> ResponseEntity<ApiResponse> created(T data, String message) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<T>builder()
+    public static <T> ResponseEntity created(String message) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiEnvelope.<T>builder()
             .status(HttpStatus.CREATED.value())
             .message(message)
-            .data(data)
             .timestamp(LocalDateTime.now())
             .build());
     }
