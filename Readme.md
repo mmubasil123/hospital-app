@@ -1,7 +1,3 @@
-This is a comprehensive `README.md` guide for your GitHub repository. It is structured to guide a user through the **entire systems engineering lifecycle**, from initial setup to high-concurrency performance analysis.
-
----
-
 # 🏥 Hospital Core: Performance Lab & Modular Monolith
 
 This project is a **Learning Sandbox** designed to shift from a "feature developer" to a **"systems engineer"** mindset. Instead of just writing code, this laboratory focuses on intentionally engineering architectural flaws—specifically **Missing Indexes** and **N+1 Selects**—to observe their impact using professional observability tools.
