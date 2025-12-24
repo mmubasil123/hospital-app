@@ -1,4 +1,4 @@
-package com.hospital.core.util;
+package com.hospital.demo.config;
 
 import com.github.javafaker.Faker;
 

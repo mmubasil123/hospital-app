@@ -34,11 +34,4 @@ public class ApiEnvelope<T> {
             .build());
     }
 
-    public static <T> ResponseEntity created(String message) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiEnvelope.<T>builder()
-            .status(HttpStatus.CREATED.value())
-            .message(message)
-            .timestamp(LocalDateTime.now())
-            .build());
-    }
 }

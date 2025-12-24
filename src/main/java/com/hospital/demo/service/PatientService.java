@@ -4,8 +4,12 @@ import com.hospital.demo.dto.PatientRequest;
 import com.hospital.demo.exception.ResourceNotFoundException;
 import com.hospital.demo.model.Patient;
 import com.hospital.demo.repository.PatientRepository;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -55,5 +59,13 @@ public class PatientService {
     public void deletePatientByEmail (String email) {
         Patient patient = findByEmail(email);
         patientRepository.delete(patient);
+    }
+
+    public Map<UUID, Patient> findAllByIdsMap(List<UUID> ids) {
+        return patientRepository.findAllById(ids).stream()
+            .collect(Collectors.toMap(
+                Patient::getId,
+                Function.identity()
+            ));
     }
 }
