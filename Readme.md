@@ -133,6 +133,3 @@ docker-compose up -d
 - **Throughput Paradox:** Learned that cumulative memory allocation can increase when code is optimized because the system is performing more work per second.
 - **Connection Pool Starvation:** Observed how a single slow endpoint can exhaust the HikariCP pool, causing unrelated fast endpoints to fail (401/500 errors).
 - **Security Short-Circuit:** Identified how expiring JWT tokens can lead to "false health" in metrics where system load drops to zero because the security filter is rejecting all traffic.
-
----
-*Created as part of a Systems Engineering Deep Dive.*
