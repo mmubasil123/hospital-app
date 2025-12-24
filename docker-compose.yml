@@ -50,7 +50,6 @@ services:
     networks:
       - hospital-net
 
-  # THE MISSING LINK: The DB Observability Bridge
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter
     container_name: postgres-exporter
